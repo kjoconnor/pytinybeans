@@ -26,3 +26,7 @@ In [7]: entry.comments[0].text
 Out[7]: 'Ok, I got this!'
 
 ```
+
+## Notes
+
+This isn't a wonderful example of API design, and there's some weirdness like using `.format()` in some places vs old style string replacement in others. In my defense, I was extremely sleep deprived, but it's functional :)
