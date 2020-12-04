@@ -46,7 +46,10 @@ class TinybeanChild(object):
         self.journal = journal
 
     def __repr__(self) -> str:
-        return "<{name} {dob}>".format(name=self.name, dob=self.date_of_birth,)
+        return "<{name} {dob}>".format(
+            name=self.name,
+            dob=self.date_of_birth,
+        )
 
     @property
     def name(self):
@@ -128,7 +131,12 @@ class PyTinybeans(object):
                 headers={"authorization": self._access_token},
             )
         else:
-            response = self.session.request(method, url, params=params, json=json,)
+            response = self.session.request(
+                method,
+                url,
+                params=params,
+                json=json,
+            )
 
         return response
 
@@ -158,7 +166,10 @@ class PyTinybeans(object):
         self.user = TinybeansUser(data=response.json()["user"])
 
     def get_followings(self):
-        response = self._api(path="followings", params={"clientId": self.CLIENT_ID},)
+        response = self._api(
+            path="followings",
+            params={"clientId": self.CLIENT_ID},
+        )
 
         for following in response.json()["followings"]:
             yield TinybeanFollowing(following)
@@ -186,7 +197,11 @@ class PyTinybeans(object):
 
         response = self._api(
             path="journals/%s/entries" % child.journal.id,
-            params={"clientId": self.CLIENT_ID, "fetchSize": 200, "last": last,},
+            params={
+                "clientId": self.CLIENT_ID,
+                "fetchSize": 200,
+                "last": last,
+            },
         )
 
         for entry in response.json()["entries"]:
@@ -197,7 +212,11 @@ class PyTinybeans(object):
 
             response = self._api(
                 path="journals/%s/entries" % child.journal.id,
-                params={"clientId": self.CLIENT_ID, "fetchSize": 200, "last": last,},
+                params={
+                    "clientId": self.CLIENT_ID,
+                    "fetchSize": 200,
+                    "last": last,
+                },
             )
 
             for entry in response.json()["entries"]:
