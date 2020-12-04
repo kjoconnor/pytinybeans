@@ -223,3 +223,20 @@ class PyTinybeans(object):
                 entries.append(TinybeanEntry(entry))
 
         return entries
+
+    def request_export(
+        self, journal: TinybeanJournal, start_dt: datetime, end_dt: datetime
+    ) -> bool:
+        response = self._api(
+            method="POST",
+            path="/api/1/journals/{journal_id}/export".format(journal_id=journal.id),
+            params={
+                "startDate": start_dt.strftime("%Y-%m-%d"),
+                "endDate": end_dt.strftime("%Y-%m-%d"),
+            },
+        )
+
+        if response.json()["status"] == "ok":
+            return True
+
+        return False
